@@ -1,12 +1,8 @@
-import express, { NextFunction, Request, Response } from "express";
-import dotenv from "dotenv";
+import express, { Request, Response } from "express";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
-
-dotenv.config({ path: ".env.development" });
+import { env } from "./config";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
@@ -15,6 +11,6 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use(errorMiddleware);
 
-app.listen(PORT, () => {
-  console.log(`Listening to port ${PORT}`);
+app.listen(env.PORT, () => {
+  console.log(`Listening to port ${env.PORT} in ${env.NODE_ENV} mode `);
 });
